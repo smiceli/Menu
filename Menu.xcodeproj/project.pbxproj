@@ -12,6 +12,7 @@
 		E6E0B9471C784795005C1787 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6E0B9451C784795005C1787 /* Main.storyboard */; };
 		E6E0B9491C784795005C1787 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E6E0B9481C784795005C1787 /* Assets.xcassets */; };
 		E6E0B94C1C784795005C1787 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6E0B94A1C784795005C1787 /* LaunchScreen.storyboard */; };
+		E6E0B9541C784C62005C1787 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E0B9531C784C62005C1787 /* MenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,8 @@
 		E6E0B9481C784795005C1787 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6E0B94B1C784795005C1787 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E6E0B94D1C784795005C1787 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E6E0B9531C784C62005C1787 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		E6E0B9551C78720E005C1787 /* ReadMe.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadMe.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +59,8 @@
 			children = (
 				E6E0B9411C784795005C1787 /* AppDelegate.swift */,
 				E6E0B9431C784795005C1787 /* ViewController.swift */,
+				E6E0B9531C784C62005C1787 /* MenuView.swift */,
+				E6E0B9551C78720E005C1787 /* ReadMe.md */,
 				E6E0B9451C784795005C1787 /* Main.storyboard */,
 				E6E0B9481C784795005C1787 /* Assets.xcassets */,
 				E6E0B94A1C784795005C1787 /* LaunchScreen.storyboard */,
@@ -136,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E6E0B9441C784795005C1787 /* ViewController.swift in Sources */,
+				E6E0B9541C784C62005C1787 /* MenuView.swift in Sources */,
 				E6E0B9421C784795005C1787 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
