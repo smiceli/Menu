@@ -75,62 +75,30 @@ class MenuView: UIView, UIScrollViewDelegate {
     }
 
     private func positionScrollView() {
-        NSLayoutConstraint.activateConstraints([
-            NSLayoutConstraint(item: scrollView, attribute: .Top, relatedBy: .Equal
-                , toItem: self, attribute: .Top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: scrollView, attribute: .Bottom, relatedBy: .Equal
-                , toItem: self, attribute: .Bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: scrollView, attribute: .Left, relatedBy: .Equal
-                , toItem: self, attribute: .Left, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: scrollView, attribute: .Width, relatedBy: .Equal
-                , toItem: self, attribute: .Width, multiplier: 1.0, constant: 0),
-        ])
+        scrollView.constrainToSuperview()
     }
 
     private func positionSpacingView() {
-        NSLayoutConstraint.activateConstraints([
-            NSLayoutConstraint(item: spacing, attribute: .Top, relatedBy: .Equal
-                , toItem: scrollView, attribute: .Top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: spacing, attribute: .Bottom, relatedBy: .Equal
-                , toItem: scrollView, attribute: .Bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: spacing, attribute: .Left, relatedBy: .Equal
-                , toItem: scrollView, attribute: .Left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: spacing, attribute: .Width, relatedBy: .Equal
-                , toItem: self, attribute: .Width, multiplier: 1, constant: 0),
-            ])
+        spacing.constrain(.Top, toView: scrollView)
+        spacing.constrain(.Left, toView: scrollView)
+        spacing.constrain(.Bottom, toView: scrollView)
+        spacing.constrain(.Width, toView: self)
     }
     
     private func positionMenuContentView() {
-        NSLayoutConstraint.activateConstraints([
-            NSLayoutConstraint(item: menuContentView, attribute: .Top, relatedBy: .Equal
-                , toItem: spacing, attribute: .Top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: menuContentView, attribute: .Bottom, relatedBy: .Equal
-                , toItem: spacing, attribute: .Bottom, multiplier: 1, constant: 0),
-
-            NSLayoutConstraint(item: menuContentView, attribute: .Left, relatedBy: .Equal
-                , toItem: spacing, attribute: .Right, multiplier: 1, constant: 0),
-
-            NSLayoutConstraint(item: menuContentView, attribute: .Right, relatedBy: .Equal
-                , toItem: scrollView, attribute: .Right, multiplier: 1, constant: 0),
-
-            NSLayoutConstraint(item: menuContentView, attribute: .Width, relatedBy: .Equal
-                , toItem: self, attribute: .Width, multiplier: 0.3, constant: 0),
-            NSLayoutConstraint(item: menuContentView, attribute: .Height, relatedBy: .Equal
-                , toItem: self, attribute: .Height, multiplier: 1, constant: 0),
-        ])
+        menuContentView.constrain(.Top, toView: spacing)
+        menuContentView.constrain(.Bottom, toView: spacing)
+        menuContentView.constrain(.Right, toView: scrollView)
+        menuContentView.constrain(.Height, toView: self)
+        menuContentView.constrain(.Width, toView: self, multiplier: 0.3)
+        menuContentView.constrain(.Left, toView: spacing, toAttr: .Right)
     }
 
     private func positionRightMarginView() {
-        NSLayoutConstraint.activateConstraints([
-            NSLayoutConstraint(item: rightMarginView, attribute: .Top, relatedBy: .Equal
-                , toItem: menuContentView, attribute: .Top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: rightMarginView, attribute: .Bottom, relatedBy: .Equal
-                , toItem: menuContentView, attribute: .Bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: rightMarginView, attribute: .Left, relatedBy: .Equal
-                , toItem: menuContentView, attribute: .Right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: rightMarginView, attribute: .Width, relatedBy: .Equal
-                , toItem: self, attribute: .Width, multiplier: 1, constant: 0),
-        ])
+        rightMarginView.constrain(.Top, toView: menuContentView)
+        rightMarginView.constrain(.Bottom, toView: menuContentView)
+        rightMarginView.constrain(.Left, toView: menuContentView, toAttr: .Right)
+        rightMarginView.constrain(.Width, toView: self)
     }
 
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {

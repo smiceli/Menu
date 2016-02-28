@@ -30,7 +30,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(button)
         view.addSubview(menuView)
         layoutButton()
@@ -41,21 +40,14 @@ class ViewController: UIViewController {
     }
 
     private func layoutButton() {
-        NSLayoutConstraint.activateConstraints([
-            NSLayoutConstraint(item: button, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: button, attribute: .CenterY, relatedBy: .Equal, toItem: view, attribute: .CenterY, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: button, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 100),
-            NSLayoutConstraint(item: button, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 50),
-        ])
+        button.constrain(.CenterX, toView: view)
+        button.constrain(.CenterY, toView: view)
+        button.constrain(.Width, 100)
+        button.constrain(.Height, 50)
     }
 
     private func layoutMenuView() {
-        NSLayoutConstraint.activateConstraints([
-            NSLayoutConstraint(item: menuView, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: menuView, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: menuView, attribute: .Width, relatedBy: .Equal, toItem: view, attribute: .Width, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: menuView, attribute: .Height, relatedBy: .Equal, toItem: view, attribute: .Height, multiplier: 1, constant: 0),
-        ])
+        menuView.constrainToSuperview()
     }
 
     @objc private func buttonTapped() {
