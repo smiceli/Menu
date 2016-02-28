@@ -18,13 +18,13 @@ class ViewController: UIViewController {
 
     private lazy var button: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("tap here", forState: .Normal)
         button.setTitleColor(UIColor.blackColor(), forState: .Normal)
         button.addTarget(self, action: Selector("buttonTapped"), forControlEvents: .TouchUpInside)
         button.layer.borderColor = UIColor.blackColor().CGColor
         button.layer.borderWidth = 1.0
         button.layer.cornerRadius = 8.0
+        button.backgroundColor = UIColor(hue: CGFloat(drand48()), saturation: 1, brightness: 1, alpha: 1)
         return button
     }()
 
@@ -48,6 +48,12 @@ class ViewController: UIViewController {
 
     private func layoutMenuView() {
         menuView.constrainToSuperview()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        button.layer.cornerRadius = button.bounds.height/2.0
     }
 
     @objc private func buttonTapped() {

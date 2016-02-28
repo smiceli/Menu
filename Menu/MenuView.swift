@@ -26,6 +26,11 @@ class MenuView: UIView, UIScrollViewDelegate {
         }
     }
 
+    private var isMenuShowing = false
+    private lazy var viewTappedRecognizer: UIGestureRecognizer = {
+        return UITapGestureRecognizer(target: self, action: Selector("viewTapped"))
+    }()
+
     private lazy var scrollView: UIScrollView = {
         let scrollView = TransparentScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -51,12 +56,19 @@ class MenuView: UIView, UIScrollViewDelegate {
         return view
     }()
 
+    private lazy var dimView: UIView = {
+        let view = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+        view.alpha = 0
+        return view
+    }()
+
     override func willMoveToSuperview(newSuperview: UIView?) {
         if newSuperview == nil { return }
         setupSubviews()
     }
 
     private func setupSubviews() {
+        addSubview(dimView)
         addSubview(scrollView)
         scrollView.addSubview(spacing)
         scrollView.addSubview(menuContentView)
@@ -64,10 +76,13 @@ class MenuView: UIView, UIScrollViewDelegate {
 
         menuContentView.backgroundColor = UIColor(hue: CGFloat(drand48()), saturation: 1.0, brightness: 1.0, alpha: 1.0)
         rightMarginView.backgroundColor = menuContentView.backgroundColor
+
+        addGestureRecognizer(viewTappedRecognizer)
     }
 
     override func updateConstraints() {
         super.updateConstraints()
+        dimView.constrainToSuperview()
         positionScrollView()
         positionSpacingView()
         positionMenuContentView()
@@ -101,6 +116,16 @@ class MenuView: UIView, UIScrollViewDelegate {
         rightMarginView.constrain(.Width, toView: self)
     }
 
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        var alpha = scrollView.contentOffset.x / menuContentView.bounds.width
+        if alpha < 0 { alpha = 0 }
+        else if alpha > 1 { alpha = 1 }
+        dimView.alpha = alpha
+
+        isMenuShowing = scrollView.contentOffset.x >= menuContentView.bounds.width
+        viewTappedRecognizer.enabled = isMenuShowing
+    }
+
     func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let left = abs(targetContentOffset.memory.x)
         let right = abs(targetContentOffset.memory.x - menuContentView.bounds.width)
@@ -113,7 +138,20 @@ class MenuView: UIView, UIScrollViewDelegate {
         }
     }
 
+    func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
+        if scrollView.contentOffset.x < menuContentView.bounds.width {
+            scrollView.setContentOffset(CGPoint.zero, animated: true)
+        }
+        else {
+            scrollView.setContentOffset(CGPoint(x: menuContentView.bounds.width, y: 0), animated: true)
+        }
+    }
+
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        return false
+        return isMenuShowing
+    }
+
+    @objc private func viewTapped() {
+        scrollView.setContentOffset(CGPoint.zero, animated: true)
     }
 }
