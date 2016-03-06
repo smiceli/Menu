@@ -24,27 +24,37 @@ extension UIView {
         constrain(.Bottom, toView: superview!, toAttr: .BottomMargin)
     }
 
-    func constrain(attribute: NSLayoutAttribute, toView: UIView, priority: UILayoutPriority = UILayoutPriorityRequired, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
-        return constrain(attribute, toView: toView, toAttr: attribute, priority: priority, multiplier: multiplier)
+    func constrain(attribute: NSLayoutAttribute, toView: UIView, priority: UILayoutPriority = UILayoutPriorityRequired, multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> NSLayoutConstraint {
+        return constrain(attribute, toView: toView, toAttr: attribute, priority: priority, multiplier: multiplier, constant: constant)
     }
 
-    func constrain(attributes: [NSLayoutAttribute], toView: UIView, priority: UILayoutPriority = UILayoutPriorityRequired, multiplier: CGFloat = 1.0) -> [NSLayoutConstraint] {
+    func constrain(attributes: [NSLayoutAttribute], toView: UIView, priority: UILayoutPriority = UILayoutPriorityRequired, multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> [NSLayoutConstraint] {
         var constraints = [NSLayoutConstraint]()
 
         for a in attributes {
-            constraints.append(constrain(a, toView: toView, toAttr: a, priority: priority, multiplier: multiplier))
+            constraints.append(constrain(a, toView: toView, toAttr: a, priority: priority, multiplier: multiplier, constant: constant))
         }
 
         return constraints
     }
 
-    func constrain(attribute: NSLayoutAttribute, toView: UIView, toAttr: NSLayoutAttribute, priority: UILayoutPriority = UILayoutPriorityRequired, multiplier: CGFloat = 1.0) -> NSLayoutConstraint {
+    func constrain(attribute: NSLayoutAttribute, toView: UIView, toAttr: NSLayoutAttribute, priority: UILayoutPriority = UILayoutPriorityRequired, multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> NSLayoutConstraint {
         translatesAutoresizingMaskIntoConstraints = false
         toView.translatesAutoresizingMaskIntoConstraints = false
-        let c = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .Equal, toItem: toView, attribute: toAttr, multiplier: multiplier, constant: 0)
+        let c = NSLayoutConstraint(item: self, attribute: attribute, relatedBy: .Equal, toItem: toView, attribute: toAttr, multiplier: multiplier, constant: constant)
         c.priority = priority
         NSLayoutConstraint.activateConstraints([c])
         return c
+    }
+
+    func constrain(attributes: [NSLayoutAttribute], _ constant: CGFloat, priority: UILayoutPriority = UILayoutPriorityRequired) -> [NSLayoutConstraint] {
+        var constraints = [NSLayoutConstraint]()
+
+        for a in attributes {
+            constraints.append(constrain(a, constant, priority: priority))
+        }
+
+        return constraints
     }
 
     func constrain(attribute: NSLayoutAttribute, _ constant: CGFloat, priority: UILayoutPriority = UILayoutPriorityRequired) -> NSLayoutConstraint {

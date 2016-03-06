@@ -67,6 +67,33 @@ class MenuView: UIView, UIScrollViewDelegate {
         return view
     }()
 
+    private lazy var showButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("≣", forState: .Normal)
+        button.setTitleColor(UIColor.blueColor(), forState: .Normal)
+        button.titleLabel?.font = UIFont.systemFontOfSize(30)
+        button.addTarget(self, action: Selector("toggleMenuShowing"), forControlEvents: .TouchUpInside)
+        return button
+    }()
+
+
+    @objc func toggleMenuShowing() {
+        if isMenuShowing {
+            hideMenu()
+        }
+        else {
+            showMenu()
+        }
+    }
+
+    func showMenu() {
+        scrollView.setContentOffset(CGPoint(x: menuContentView.bounds.width+40, y: 0), animated: true)
+    }
+
+    func hideMenu() {
+        scrollView.setContentOffset(CGPoint.zero, animated: true)
+    }
+
     override func willMoveToSuperview(newSuperview: UIView?) {
         if newSuperview == nil { return }
         setupSubviews()
@@ -79,6 +106,7 @@ class MenuView: UIView, UIScrollViewDelegate {
         scrollView.addSubview(spacing)
         scrollView.addSubview(menuContentView)
         scrollView.addSubview(rightMarginView)
+        scrollView.addSubview(showButton)
 
         menuContentView.backgroundColor = UIColor(hue: CGFloat(drand48()), saturation: 1.0, brightness: 1.0, alpha: 1.0)
         rightMarginView.backgroundColor = menuContentView.backgroundColor
@@ -88,8 +116,13 @@ class MenuView: UIView, UIScrollViewDelegate {
 
     override func updateConstraints() {
         super.updateConstraints()
+
         dimView.constrainToSuperview()
         dimViewWrapper.constrainToSuperview()
+        showButton.constrain(.Top, toView: spacing, constant: 20)
+        showButton.constrain(.Right, toView: spacing, constant: -20)
+        showButton.constrain([.Width, .Height], 44)
+
         positionScrollView()
         positionSpacingView()
         positionMenuContentView()
@@ -142,18 +175,22 @@ class MenuView: UIView, UIScrollViewDelegate {
 
     func scrollViewDidEndScrollingAnimation(scrollView: UIScrollView) {
         if scrollView.contentOffset.x < menuContentView.bounds.width {
-            scrollView.setContentOffset(CGPoint.zero, animated: true)
+            hideMenu()
         }
         else {
             scrollView.setContentOffset(CGPoint(x: menuContentView.bounds.width, y: 0), animated: true)
         }
     }
 
-    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        return isMenuShowing
+    override func hitTest(point: CGPoint, withEvent event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, withEvent: event)
+        if hitView == showButton {
+            return hitView
+        }
+        return isMenuShowing ? hitView : nil
     }
 
     @objc private func viewTapped() {
-        scrollView.setContentOffset(CGPoint.zero, animated: true)
+        hideMenu()
     }
 }
