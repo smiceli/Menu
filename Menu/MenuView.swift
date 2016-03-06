@@ -58,6 +58,11 @@ class MenuView: UIView, UIScrollViewDelegate {
 
     private lazy var dimView: UIView = {
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+        return view
+    }()
+
+    private lazy var dimViewWrapper: UIView = {
+        let view = UIView()
         view.alpha = 0
         return view
     }()
@@ -68,7 +73,8 @@ class MenuView: UIView, UIScrollViewDelegate {
     }
 
     private func setupSubviews() {
-        addSubview(dimView)
+        dimViewWrapper.addSubview(dimView)
+        addSubview(dimViewWrapper)
         addSubview(scrollView)
         scrollView.addSubview(spacing)
         scrollView.addSubview(menuContentView)
@@ -83,6 +89,7 @@ class MenuView: UIView, UIScrollViewDelegate {
     override func updateConstraints() {
         super.updateConstraints()
         dimView.constrainToSuperview()
+        dimViewWrapper.constrainToSuperview()
         positionScrollView()
         positionSpacingView()
         positionMenuContentView()
@@ -94,24 +101,19 @@ class MenuView: UIView, UIScrollViewDelegate {
     }
 
     private func positionSpacingView() {
-        spacing.constrain(.Top, toView: scrollView)
-        spacing.constrain(.Left, toView: scrollView)
-        spacing.constrain(.Bottom, toView: scrollView)
+        spacing.constrain([.Top, .Left, .Bottom], toView: scrollView)
         spacing.constrain(.Width, toView: self)
     }
     
     private func positionMenuContentView() {
-        menuContentView.constrain(.Top, toView: spacing)
-        menuContentView.constrain(.Bottom, toView: spacing)
-        menuContentView.constrain(.Right, toView: scrollView)
+        menuContentView.constrain([.Top, .Bottom, .Right], toView: scrollView)
         menuContentView.constrain(.Height, toView: self)
         menuContentView.constrain(.Width, toView: self, multiplier: 0.3)
         menuContentView.constrain(.Left, toView: spacing, toAttr: .Right)
     }
 
     private func positionRightMarginView() {
-        rightMarginView.constrain(.Top, toView: menuContentView)
-        rightMarginView.constrain(.Bottom, toView: menuContentView)
+        rightMarginView.constrain([.Top, .Bottom], toView: menuContentView)
         rightMarginView.constrain(.Left, toView: menuContentView, toAttr: .Right)
         rightMarginView.constrain(.Width, toView: self)
     }
@@ -120,7 +122,7 @@ class MenuView: UIView, UIScrollViewDelegate {
         var alpha = scrollView.contentOffset.x / menuContentView.bounds.width
         if alpha < 0 { alpha = 0 }
         else if alpha > 1 { alpha = 1 }
-        dimView.alpha = alpha
+        dimViewWrapper.alpha = alpha
 
         isMenuShowing = scrollView.contentOffset.x >= menuContentView.bounds.width
         viewTappedRecognizer.enabled = isMenuShowing

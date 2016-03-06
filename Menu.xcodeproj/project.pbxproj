@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E62B59D51C82D9CC006D128B /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62B59D41C82D9CC006D128B /* UIViewExtension.swift */; };
+		E6870C511C8C180E008C9F3B /* ShowTouchWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6870C501C8C180E008C9F3B /* ShowTouchWindow.swift */; };
 		E6E0B9421C784795005C1787 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E0B9411C784795005C1787 /* AppDelegate.swift */; };
 		E6E0B9441C784795005C1787 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E0B9431C784795005C1787 /* ViewController.swift */; };
 		E6E0B9471C784795005C1787 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6E0B9451C784795005C1787 /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		E62B59D41C82D9CC006D128B /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		E6870C501C8C180E008C9F3B /* ShowTouchWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowTouchWindow.swift; sourceTree = "<group>"; };
 		E6E0B93E1C784795005C1787 /* Menu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Menu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6E0B9411C784795005C1787 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E6E0B9431C784795005C1787 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,6 +45,7 @@
 		E6E0B9351C784795005C1787 = {
 			isa = PBXGroup;
 			children = (
+				E6870C501C8C180E008C9F3B /* ShowTouchWindow.swift */,
 				E6E0B9401C784795005C1787 /* Menu */,
 				E6E0B93F1C784795005C1787 /* Products */,
 			);
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E6870C511C8C180E008C9F3B /* ShowTouchWindow.swift in Sources */,
 				E6E0B9441C784795005C1787 /* ViewController.swift in Sources */,
 				E6E0B9541C784C62005C1787 /* MenuView.swift in Sources */,
 				E62B59D51C82D9CC006D128B /* UIViewExtension.swift in Sources */,

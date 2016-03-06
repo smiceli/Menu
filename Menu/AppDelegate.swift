@@ -11,7 +11,18 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    var touchWindow: UIWindow?
+
+    var window: UIWindow? {
+        get {
+            if touchWindow == nil {
+                touchWindow = ShowTouchWindow()
+            }
+            return touchWindow
+        }
+        set {
+        }
+    }
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
